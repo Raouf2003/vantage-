@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "ecosystem": "Écosystème",
+    "strategy": "Stratégie",
+    "investment": "Investissement",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Une Société Holding Multi-Disciplinaire",
+    "title": "Là où la Vision",
+    "titleAccent": "Rencontre l'Ingénierie",
+    "subtitle": "Vantage Group est une société holding multi-disciplinaire opérant à l'intersection de la technologie numérique, de la production cinématographique et de l'investissement stratégique.",
+    "cta": "Explorez Notre Monde",
+    "ctaSecondary": "Notre Stratégie"
+  },
+  "ecosystem": {
+    "title": "Notre Écosystème",
+    "subtitle": "Trois piliers qui définissent notre approche pour construire l'avenir.",
+    "card1": {
+      "title": "Digital Smart",
+      "description": "Des solutions technologiques de pointe qui pilotent la transformation numérique dans toutes les industries."
+    },
+    "card2": {
+      "title": "Vantage Group",
+      "description": "La société holding qui orchestre notre écosystème d'innovation et d'excellence."
+    },
+    "card3": {
+      "title": "Cinéma & Marketing",
+      "description": "Une production et un marketing de classe mondiale qui racontent des histoires mémorables."
+    }
+  },
+  "strategy": {
+    "title": "Notre Stratégie",
+    "subtitle": "Une philosophie bâtie sur la précision, la patience et la création de valeur à long terme.",
+    "step1": {
+      "year": "2008",
+      "title": "Fondation",
+      "description": "Vantage Group a été créé avec une vision claire : constituer un portefeuille diversifié d'entreprises exceptionnelles."
+    },
+    "step2": {
+      "year": "2012",
+      "title": "Expansion Numérique",
+      "description": "Lancement de Digital Smart, notre branche technologique, en expansion sur les marchés numériques à forte croissance."
+    },
+    "step3": {
+      "year": "2015",
+      "title": "Cinéma & Médias",
+      "description": "Entrée dans l'industrie du cinéma et du marketing, apportant notre état d'esprit d'ingénieur à la production créative."
+    },
+    "step4": {
+      "year": "2020",
+      "title": "Rayonnement Mondial",
+      "description": "Expansion des opérations sur plusieurs continents, faisant de Vantage un acteur mondial."
+    },
+    "step5": {
+      "year": "Aujourd'hui",
+      "title": "Innovation",
+      "description": "Nous continuons d'investir dans les technologies d'avenir, les talents et les ventures transformatrices."
+    }
+  },
+  "investment": {
+    "title": "Philosophie d'Investissement",
+    "subtitle": "Nous investissons dans des entreprises, des technologies et des idées qui redéfinissent les industries.",
+    "statValue": "15+",
+    "statLabel": "Années d'Investissement Actif",
+    "approachLabel": "Approche",
+    "approach": "Notre Approche",
+    "approachDesc": "Nous adoptons une approche à long terme et concrète pour créer de la valeur. Chaque investissement est un partenariat fondé sur la confiance, l'expertise et une vision commune de l'avenir.",
+    "portfolioLabel": "Portefeuille",
+    "portfolio": "Portefeuille",
+    "portfolioDesc": "Une collection curated d'entreprises leaders sur leurs marchés dans les secteurs de la technologie, des médias et des services stratégiques.",
+    "pillar1": {
+      "title": "Valeur à Long Terme",
+      "description": "Nous construisons pour des décennies, pas pour des trimestres. Le capital patient génère des résultats supérieurs."
+    },
+    "pillar2": {
+      "title": "Focus Stratégique",
+      "description": "Chaque investissement est délibéré, aligné sur notre thèse et notre expertise principales."
+    },
+    "pillar3": {
+      "title": "Partenariat Actif",
+      "description": "Nous travaillons aux côtés des fondateurs et des équipes de direction pour accélérer la croissance."
+    }
+  },
+  "contact": {
+    "title": "Restons",
+    "titleAccent": "Connectés",
+    "subtitle": "Vous avez un projet en tête ? Nous serions ravis de vous entendre.",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "address": "Algérie, Batna",
+    "phone": "0655984837"
+  },
+  "footer": {
+    "rights": "Tous droits réservés."
+  }
+}

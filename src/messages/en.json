@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "ecosystem": "Ecosystem",
+    "strategy": "Strategy",
+    "investment": "Investment",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "A Multi-Disciplinary Holding Company",
+    "title": "Where Vision",
+    "titleAccent": "Meets Engineering",
+    "subtitle": "Vantage Group is a multi-disciplinary holding company operating at the intersection of digital technology, cinema production, and strategic investment.",
+    "cta": "Explore Our World",
+    "ctaSecondary": "Our Strategy"
+  },
+  "ecosystem": {
+    "title": "Our Ecosystem",
+    "subtitle": "Three pillars that define our approach to building the future.",
+    "card1": {
+      "title": "Digital Smart",
+      "description": "Cutting-edge technology solutions that drive digital transformation across industries."
+    },
+    "card2": {
+      "title": "Vantage Group",
+      "description": "The holding company that orchestrates our ecosystem of innovation and excellence."
+    },
+    "card3": {
+      "title": "Cinema & Marketing",
+      "description": "World-class production and marketing that tells stories worth remembering."
+    }
+  },
+  "strategy": {
+    "title": "Our Strategy",
+    "subtitle": "A philosophy built on precision, patience, and long-term value creation.",
+    "step1": {
+      "year": "2008",
+      "title": "Foundation",
+      "description": "Vantage Group was established with a clear vision: to build a diversified portfolio of exceptional companies."
+    },
+    "step2": {
+      "year": "2012",
+      "title": "Digital Expansion",
+      "description": "Launched Digital Smart, our technology arm, expandinginto high-growth digital markets."
+    },
+    "step3": {
+      "year": "2015",
+      "title": "Cinema & Media",
+      "description": "Entered the cinema and marketing industry, bringing our engineering mindset to creative production."
+    },
+    "step4": {
+      "year": "2020",
+      "title": "Global Reach",
+      "description": "Expanded operations across multiple continents, establishing Vantage as a global player."
+    },
+    "step5": {
+      "year": "Today",
+      "title": "Innovation Forward",
+      "description": "Continuing to invest in future technologies, talent, and transformative ventures."
+    }
+  },
+  "investment": {
+    "title": "Investment Philosophy",
+    "subtitle": "We invest in companies, technologies, and ideas that redefine industries.",
+    "statValue": "15+",
+    "statLabel": "Years of Active Investing",
+    "approachLabel": "Approach",
+    "approach": "Our Approach",
+    "approachDesc": "We take a long-term, hands-on approach to building value. Every investment is a partnership built on trust, expertise, and a shared vision for the future.",
+    "portfolioLabel": "Portfolio",
+    "portfolio": "Portfolio",
+    "portfolioDesc": "A curated collection of market-leading companies across technology, media, and strategic services.",
+    "pillar1": {
+      "title": "Long-Term Value",
+      "description": "We build for decades, not quarters. Patient capital drives superior outcomes."
+    },
+    "pillar2": {
+      "title": "Strategic Focus",
+      "description": "Every investment is deliberate, aligned with our core thesis and expertise."
+    },
+    "pillar3": {
+      "title": "Active Partnership",
+      "description": "We work alongside founders and management teams to accelerate growth."
+    }
+  },
+  "contact": {
+    "title": "Let's",
+    "titleAccent": "Connect",
+    "subtitle": "Have a project in mind? We'd love to hear from you.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "address": "Algeria, Batna",
+    "phone": "0655984837"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
