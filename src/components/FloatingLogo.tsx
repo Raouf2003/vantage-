@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { motion, useScroll, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useMotionValue } from "framer-motion";
 import { useAnchors } from "@/contexts/AnchorContext";
 
 interface AnchorRect {
@@ -12,6 +12,7 @@ interface AnchorRect {
 }
 
 const SCROLL_RANGE = 400;
+const Y_OFFSET = -28; // px — logo vertical offset at scroll=0 (negative=up)
 
 function easeOut(p: number) {
   return 1 - Math.pow(1 - p, 2);
@@ -28,18 +29,12 @@ export default function FloatingLogo() {
   const startRef = useRef<AnchorRect | null>(null);
   const endRef = useRef<AnchorRect | null>(null);
 
-  // Raw motion values driven manually — avoids stale closure in useTransform
+  // Raw motion values driven manually
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const mw = useMotionValue(0);
   const mh = useMotionValue(0);
   const mOpacity = useMotionValue(1);
-
-  // Smooth spring on top of raw values
-  const sx = useSpring(mx, { stiffness: 140, damping: 30, mass: 0.8 });
-  const sy = useSpring(my, { stiffness: 140, damping: 30, mass: 0.8 });
-  const sw = useSpring(mw, { stiffness: 140, damping: 30, mass: 0.8 });
-  const sh = useSpring(mh, { stiffness: 140, damping: 30, mass: 0.8 });
 
   const measure = useCallback(() => {
     // rAF ensures layout is committed before reading rects
@@ -82,9 +77,10 @@ export default function FloatingLogo() {
     const ch = s.h + (e.h - s.h) * ease;
     const cx = s.cx + (e.cx - s.cx) * ease;
     const cy = s.cy + (e.cy - s.cy) * ease;
+    const cyOffset = Y_OFFSET * (1 - ease);
 
     mx.set(cx - cw / 2);
-    my.set(cy - ch / 2);
+    my.set(cy - ch / 2 + cyOffset);
     mw.set(cw);
     mh.set(ch);
     mOpacity.set(1 - ease * 0.2);
@@ -121,10 +117,10 @@ export default function FloatingLogo() {
     <motion.div
       className="fixed top-0 left-0 z-50 pointer-events-none"
       style={{
-        x: sx,
-        y: sy,
-        width: sw,
-        height: sh,
+        x: mx,
+        y: my,
+        width: mw,
+        height: mh,
         opacity: mOpacity,
       }}
     >
