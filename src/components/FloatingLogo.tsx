@@ -12,7 +12,7 @@ interface AnchorRect {
 }
 
 const SCROLL_RANGE = 400;
-const Y_OFFSET = -28; // px — logo vertical offset at scroll=0 (negative=up)
+const Y_OFFSET = -60; // px — logo vertical offset at scroll=0 (negative=up)
 
 function easeOut(p: number) {
   return 1 - Math.pow(1 - p, 2);
