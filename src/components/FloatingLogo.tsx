@@ -12,7 +12,7 @@ interface AnchorRect {
 }
 
 const SCROLL_RANGE = 500;
-const Y_OFFSET = -28; // px — adjust this to move logo up/down at scroll=0 (negative = up)
+const Y_OFFSET = -60; // px — adjust this to move logo up/down at scroll=0 (negative = up)
 
 export default function FloatingLogo() {
   const { heroAnchorRef, navbarAnchorRef } = useAnchors();
