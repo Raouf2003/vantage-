@@ -12,7 +12,7 @@ interface AnchorRect {
 }
 
 const SCROLL_RANGE = 400;
-const Y_OFFSET = -60; // px — logo vertical offset at scroll=0 (negative=up)
+const MOBILE_BREAKPOINT = 768;
 
 function easeOut(p: number) {
   return 1 - Math.pow(1 - p, 2);
@@ -24,6 +24,7 @@ export default function FloatingLogo() {
 
   const [start, setStart] = useState<AnchorRect | null>(null);
   const [end, setEnd] = useState<AnchorRect | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Keep latest rects in refs so scroll handler always reads fresh values
   const startRef = useRef<AnchorRect | null>(null);
@@ -72,12 +73,13 @@ export default function FloatingLogo() {
   function updateMotionValues(scrollYVal: number, s: AnchorRect, e: AnchorRect) {
     const p = Math.min(scrollYVal / SCROLL_RANGE, 1);
     const ease = easeOut(p);
+    const yOffset = isMobile ? -60 : -28;
 
     const cw = s.w + (e.w - s.w) * ease;
     const ch = s.h + (e.h - s.h) * ease;
     const cx = s.cx + (e.cx - s.cx) * ease;
     const cy = s.cy + (e.cy - s.cy) * ease;
-    const cyOffset = Y_OFFSET * (1 - ease);
+    const cyOffset = yOffset * (1 - ease);
 
     mx.set(cx - cw / 2);
     my.set(cy - ch / 2 + cyOffset);
@@ -96,6 +98,14 @@ export default function FloatingLogo() {
     });
     return unsub;
   }, [scrollY]);
+
+  // Detect mobile/desktop
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     measure();
