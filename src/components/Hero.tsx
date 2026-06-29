@@ -89,7 +89,7 @@ export default function Hero() {
           {/* CTA */}
           <a
             href="#strategy"
-            className="inline-block px-8 py-3.5 text-xs font-semibold tracking-[0.18em] uppercase text-[#1A1A18] border border-[#1A1A18] hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors duration-300"
+            className="self-end inline-block px-8 py-3.5 text-xs font-semibold tracking-[0.18em] uppercase text-[#1A1A18] border border-[#1A1A18] hover:border-[#C8A96E] hover:text-[#C8A96E] transition-colors duration-300"
           >
             {t("ctaSecondary")}
           </a>
