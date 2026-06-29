@@ -12,6 +12,7 @@ interface AnchorRect {
 }
 
 const SCROLL_RANGE = 500;
+const Y_OFFSET = -28; // px — adjust this to move logo up/down at scroll=0 (negative = up)
 
 export default function FloatingLogo() {
   const { heroAnchorRef, navbarAnchorRef } = useAnchors();
@@ -70,7 +71,7 @@ export default function FloatingLogo() {
     const p = Math.min(sy / SCROLL_RANGE, 1);
     const ease = 1 - Math.pow(1 - p, 1.5);
     const ch = start.h + (end.h - start.h) * ease;
-    return start.cy + (end.cy - start.cy) * ease - ch / 2;
+    return start.cy + (end.cy - start.cy) * ease - ch / 2 + Y_OFFSET * (1 - ease);
   });
 
   const w = useTransform(scrollY, (sy) => {
