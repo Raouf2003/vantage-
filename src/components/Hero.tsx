@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-end pb-20 sm:pb-28 overflow-hidden bg-[#F0EDE8]"
+      className="relative min-h-screen flex items-center sm:items-end pb-20 sm:pb-28 overflow-hidden bg-[#F0EDE8]"
       style={{
         backgroundImage: `repeating-linear-gradient(
           -45deg,
