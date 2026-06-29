@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { motion, useScroll, useMotionValue, useSpring } from "framer-motion";
 import { useAnchors } from "@/contexts/AnchorContext";
 
 interface AnchorRect {
@@ -11,8 +11,11 @@ interface AnchorRect {
   h: number;
 }
 
-const SCROLL_RANGE = 500;
-const Y_OFFSET = -60; // px — adjust this to move logo up/down at scroll=0 (negative = up)
+const SCROLL_RANGE = 400;
+
+function easeOut(p: number) {
+  return 1 - Math.pow(1 - p, 2);
+}
 
 export default function FloatingLogo() {
   const { heroAnchorRef, navbarAnchorRef } = useAnchors();
@@ -21,86 +24,115 @@ export default function FloatingLogo() {
   const [start, setStart] = useState<AnchorRect | null>(null);
   const [end, setEnd] = useState<AnchorRect | null>(null);
 
+  // Keep latest rects in refs so scroll handler always reads fresh values
+  const startRef = useRef<AnchorRect | null>(null);
+  const endRef = useRef<AnchorRect | null>(null);
+
+  // Raw motion values driven manually — avoids stale closure in useTransform
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const mw = useMotionValue(0);
+  const mh = useMotionValue(0);
+  const mOpacity = useMotionValue(1);
+
+  // Smooth spring on top of raw values
+  const sx = useSpring(mx, { stiffness: 140, damping: 30, mass: 0.8 });
+  const sy = useSpring(my, { stiffness: 140, damping: 30, mass: 0.8 });
+  const sw = useSpring(mw, { stiffness: 140, damping: 30, mass: 0.8 });
+  const sh = useSpring(mh, { stiffness: 140, damping: 30, mass: 0.8 });
+
   const measure = useCallback(() => {
-    const heroEl = heroAnchorRef.current;
-    const navEl = navbarAnchorRef.current;
-    if (!heroEl || !navEl) return;
+    // rAF ensures layout is committed before reading rects
+    requestAnimationFrame(() => {
+      const heroEl = heroAnchorRef.current;
+      const navEl = navbarAnchorRef.current;
+      if (!heroEl || !navEl) return;
 
-    const hr = heroEl.getBoundingClientRect();
-    const nr = navEl.getBoundingClientRect();
+      const hr = heroEl.getBoundingClientRect();
+      const nr = navEl.getBoundingClientRect();
 
-    setStart({
-      cx: hr.left + hr.width / 2,
-      cy: hr.top + hr.height / 2,
-      w: hr.width,
-      h: hr.height,
-    });
+      const s: AnchorRect = {
+        cx: hr.left + hr.width / 2,
+        cy: hr.top + window.scrollY + hr.height / 2,
+        w: hr.width,
+        h: hr.height,
+      };
+      const e: AnchorRect = {
+        cx: nr.left + nr.width / 2,
+        cy: nr.top + window.scrollY + nr.height / 2,
+        w: nr.width,
+        h: nr.height,
+      };
 
-    setEnd({
-      cx: nr.left + nr.width / 2,
-      cy: nr.top + nr.height / 2,
-      w: nr.width,
-      h: nr.height,
+      startRef.current = s;
+      endRef.current = e;
+      setStart(s);
+      setEnd(e);
+
+      // Immediately update motion values to current scroll position
+      updateMotionValues(window.scrollY, s, e);
     });
   }, [heroAnchorRef, navbarAnchorRef]);
 
+  function updateMotionValues(scrollYVal: number, s: AnchorRect, e: AnchorRect) {
+    const p = Math.min(scrollYVal / SCROLL_RANGE, 1);
+    const ease = easeOut(p);
+
+    const cw = s.w + (e.w - s.w) * ease;
+    const ch = s.h + (e.h - s.h) * ease;
+    const cx = s.cx + (e.cx - s.cx) * ease;
+    const cy = s.cy + (e.cy - s.cy) * ease;
+
+    mx.set(cx - cw / 2);
+    my.set(cy - ch / 2);
+    mw.set(cw);
+    mh.set(ch);
+    mOpacity.set(1 - ease * 0.2);
+  }
+
+  // Subscribe to scrollY — always reads fresh rects from refs
+  useEffect(() => {
+    const unsub = scrollY.on("change", (val) => {
+      const s = startRef.current;
+      const e = endRef.current;
+      if (!s || !e) return;
+      updateMotionValues(val, s, e);
+    });
+    return unsub;
+  }, [scrollY]);
+
   useEffect(() => {
     measure();
-    window.addEventListener("resize", measure);
 
     const ro = new ResizeObserver(measure);
     if (heroAnchorRef.current) ro.observe(heroAnchorRef.current);
     if (navbarAnchorRef.current) ro.observe(navbarAnchorRef.current);
+    window.addEventListener("resize", measure);
 
     return () => {
-      window.removeEventListener("resize", measure);
       ro.disconnect();
+      window.removeEventListener("resize", measure);
     };
   }, [measure]);
-
-  const x = useTransform(scrollY, (sy) => {
-    if (!start || !end) return 0;
-    const p = Math.min(sy / SCROLL_RANGE, 1);
-    const ease = 1 - Math.pow(1 - p, 1.5);
-    const cw = start.w + (end.w - start.w) * ease;
-    return start.cx + (end.cx - start.cx) * ease - cw / 2;
-  });
-
-  const y = useTransform(scrollY, (sy) => {
-    if (!start || !end) return 0;
-    const p = Math.min(sy / SCROLL_RANGE, 1);
-    const ease = 1 - Math.pow(1 - p, 1.5);
-    const ch = start.h + (end.h - start.h) * ease;
-    return start.cy + (end.cy - start.cy) * ease - ch / 2 + Y_OFFSET * (1 - ease);
-  });
-
-  const w = useTransform(scrollY, (sy) => {
-    if (!start || !end) return start?.w ?? 0;
-    const p = Math.min(sy / SCROLL_RANGE, 1);
-    const ease = 1 - Math.pow(1 - p, 1.5);
-    return start.w + (end.w - start.w) * ease;
-  });
-
-  const h = useTransform(scrollY, (sy) => {
-    if (!start || !end) return start?.h ?? 0;
-    const p = Math.min(sy / SCROLL_RANGE, 1);
-    const ease = 1 - Math.pow(1 - p, 1.5);
-    return start.h + (end.h - start.h) * ease;
-  });
-
-  const logoOpacity = useTransform(scrollY, [0, SCROLL_RANGE], [1, 0.85]);
 
   if (!start || !end) return null;
 
   return (
     <motion.div
       className="fixed top-0 left-0 z-50 pointer-events-none"
-      style={{ x, y, width: w, height: h, opacity: logoOpacity }}
+      style={{
+        x: sx,
+        y: sy,
+        width: sw,
+        height: sh,
+        opacity: mOpacity,
+      }}
     >
       <img
         src="/images/Vantage.png"
         alt="Vantage Group"
         className="w-full h-full object-contain"
+        draggable={false}
       />
     </motion.div>
   );
