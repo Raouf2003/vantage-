@@ -48,13 +48,13 @@ export default function FloatingLogo() {
 
       const s: AnchorRect = {
         cx: hr.left + hr.width / 2,
-        cy: hr.top + window.scrollY + hr.height / 2,
+        cy: hr.top + hr.height / 2,
         w: hr.width,
         h: hr.height,
       };
       const e: AnchorRect = {
         cx: nr.left + nr.width / 2,
-        cy: nr.top + window.scrollY + nr.height / 2,
+        cy: nr.top + nr.height / 2,
         w: nr.width,
         h: nr.height,
       };
